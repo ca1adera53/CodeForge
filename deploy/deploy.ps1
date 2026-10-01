@@ -79,7 +79,7 @@ Merge-CodeForgeDir '.codex\skills' '.agents\skills'
 Merge-CodeForgeDir '.gemini\skills'
 
 Write-Host ''
-Write-Host '  孤儿检测（家目录有、祖本没有的条目）——只报告，不删除' -ForegroundColor Cyan
+Write-Host '  双向一致性体检——只报告，不删除' -ForegroundColor Cyan
 $deployPairs = @(
     @('.claude\skills',    '.claude\skills'),
     @('.claude\commands',  '.claude\commands'),
@@ -95,6 +95,8 @@ foreach ($pair in $deployPairs) {
     $dst = Join-Path $HomeDir $pair[1]
     if (-not (Test-Path $src) -or -not (Test-Path $dst)) { continue }
     $srcNames = @(Get-ChildItem $src -Force | ForEach-Object { $_.Name })
+    $dstNames = @(Get-ChildItem $dst -Force | ForEach-Object { $_.Name })
+    # 正向：家目录多出来的（孤儿）
     $orphans = Get-ChildItem $dst -Force | Where-Object {
         $srcNames -notcontains $_.Name -and $_.Name -notlike '*.codeforge-bak.*'
     }
@@ -104,6 +106,11 @@ foreach ($pair in $deployPairs) {
         } else {
             Write-Host "    [ORPHAN] $($pair[1])\$($o.Name) （deploy 不管理；是否清理由主人决定）" -ForegroundColor Yellow
         }
+    }
+    # 反向：祖本有、家目录缺的（欠部署）
+    $missing = Get-ChildItem $src -Force | Where-Object { $dstNames -notcontains $_.Name }
+    foreach ($m in $missing) {
+        Write-Host "    [MISSING] $($pair[1])\$($m.Name) （祖本有、家目录缺；跑一次 deploy 可补齐）" -ForegroundColor Yellow
     }
 }
 
