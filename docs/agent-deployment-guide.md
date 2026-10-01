@@ -327,10 +327,18 @@ merge_codeforge_dir ".codex/skills" ".agents/skills"
 ├── code-review/SKILL.md
 ├── deep-research/SKILL.md
 ├── dev-env-scan/SKILL.md
-├── ...（16 个 skill 全套）
+├── ...（全套 skill）
 ```
 
 **为什么用 `.agents/`**：这个目录名**中立**，不属于任何一家厂商，是社区约定的"通用 agent skill 仓库"。任何 agent 只要愿意读这个目录，就能拿到 CodeForge 全套能力。
+
+**部署是单向的：祖本 → 家目录。** `~/.agents/skills/` 是**部署产物**，不是源——它的上游是祖本 `.codex/skills/`（就是上面那行 merge）。三条推论：
+
+- 想长期生效的改动**必须改进祖本**；直接改家目录不会回流，下次 deploy 会被祖本旧版覆盖
+- deploy **只覆盖同名文件、不删除**源里没有的文件——手工塞进家目录的技能不会被清掉，但**也不会被 deploy 维护**（等于游离件）
+- `.codex/skills/` 是桥接层的唯一上游；源里没有的技能，桥接层里就不会有
+
+**各家 skills 目录内容不同 ≠ 部署漂移**，判据见 §7 Q8。
 
 **B 类接入的通用三步**：
 1. 跑 deploy 脚本（桥接目录自动写入）
@@ -500,7 +508,7 @@ ls ~/.agents/skills/ai-spec/SKILL.md
 
 **A**：跑 §2 的 5 问 Checklist。5/5 全是 → A 类；否则 B 类。判定完按 §4 或 §5 对应方案接入，并欢迎按 §8 提 PR 把它补进矩阵。
 
-### Q4: WorkBuddy（SaaS）能像 Claude Code 一样用全部 16 个 skill 吗？
+### Q4: WorkBuddy（SaaS）能像 Claude Code 一样用全套 skill 吗？
 
 **A**：**不能完全等同**。SaaS 类靠 MCP / prompt 注入，skill 是"软接入"，不像 A 类那样原生 slash command。复杂 skill（如 `/ralph` 自主循环）在 SaaS 上可能降级为 prompt 引导。需要完整能力请用 A 类。
 
@@ -519,6 +527,27 @@ ls ~/.agents/skills/ai-spec/SKILL.md
 - WorkBuddy 是腾讯产品 → 国内访问无障碍，但注意 ETHICS 的数据边界
 
 ---
+
+### Q8: 各家 skills 目录内容不一样（某平台有、另一个没有），是部署漂移吗？
+
+**A**：**多半不是。先拿祖本对，别拿另一个平台的家目录对。** 祖本里三平台本来就是三套独立目录（`.claude/skills`、`.codex/skills`、`.gemini/skills`），各自收录内容并不相同；deploy 只是把每一套**忠实镜像**到对应家目录。所以：
+
+- 判定健康的唯一正确比法：**家目录 vs 它自己的祖本上游**（`~/.claude/skills` ↔ `.claude/skills`；`~/.codex/skills` 与 `~/.agents/skills` ↔ `.codex/skills`；`~/.gemini/skills` ↔ `.gemini/skills`）
+- 拿 A 平台家目录去比对 B 平台家目录，得出的差值几乎都是**设计使然**；照着"补齐"反而会造出与祖本的不一致
+- 真漂移只有一个判据：**家目录与它自己的祖本上游不一致**（多见于有人直接改了家目录、之后没跑 deploy）
+
+### Q9: skill 明明在目录里，agent 却"看不到"？
+
+**A**：先查 **frontmatter**。skill 文件必须以 YAML frontmatter 开头，且含 `name` 与 `description`：
+
+```yaml
+---
+name: your-skill
+description: 一句话说明何时触发
+---
+```
+
+**缺 `name`、或缺整个 frontmatter，会被静默丢弃**——没有报错，表现就是"这个 skill 不存在"。`name` 还需与目录名（目录式 `<name>/SKILL.md`）或文件名（扁平式 `<name>.md`）一致。
 
 ## 8. 新增 Agent 归位指南（扩展性）
 
