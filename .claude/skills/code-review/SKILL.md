@@ -1,5 +1,6 @@
 ---
-description: 混合代码审查系统 — 结合确定性工程规则与 Agent 场景化分析，外部 OCR CLI 优先 + Agent 降级模式，按 High/Medium/Low 分级输出审查意见
+name: code-review
+description: 混合代码审查 — OCR CLI 优先 + Agent 降级，按 High/Medium/Low 分级输出
 ---
 
 # Code Review — 确定性工程 × Agent 混合审查

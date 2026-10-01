@@ -1,5 +1,6 @@
 ---
-description: 开发环境扫描与偏好配置 — 项目初始化时自动检测本地工具链、运行时、硬件能力，交互式收集开发者偏好，输出结构化 profile 供后续 skill 决策参考
+name: dev-env-scan
+description: 开发环境扫描与偏好配置 — 检测工具链+收集偏好+输出 profile
 ---
 
 # Dev Env Scan — 开发环境扫描与偏好配置

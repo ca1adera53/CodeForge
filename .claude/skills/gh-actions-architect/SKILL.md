@@ -1,5 +1,6 @@
 ---
-description: Generate correct, production-ready GitHub Actions workflow YAML files for any ecosystem. Covers lint/format checks, multi-platform multi-architecture builds (.exe/.msi/.apk/.dmg/.deb/.rpm/.AppImage), Docker images, and release pipelines. Includes pitfall-check and auto-validation.
+name: gh-actions-architect
+description: Generate correct GitHub Actions CI/CD workflow YAML for any ecosystem — lint, multi-platform builds, releases
 ---
 
 # GitHub Actions Architect

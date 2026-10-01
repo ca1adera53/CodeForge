@@ -1,5 +1,6 @@
 ---
-description: Set up and run a standardized Node.js npm release workflow with auto version bump, npm publish via GitHub Actions, and local pre-push checks. Use when you want a repo to auto-bump version on push to main, publish to npm, and keep release steps consistent.
+name: nodejs-npm-auto-release
+description: Node.js/npm 包自动发布 — 版本号递增、changelog 生成、npm publish 全流程
 ---
 
 # Node.js NPM Auto Release

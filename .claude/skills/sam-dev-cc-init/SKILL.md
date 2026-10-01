@@ -1,5 +1,6 @@
 ---
-description: PDCO 循环开发工作流初始化工具。当用户输入 sam-init、pdco、init-pdco 或需要建立项目开发规范时使用。为 AI 辅助编程项目快速建立 CLAUDE.md、PROGRESS-LOG.md、任务管理、经验沉淀机制和智能评估系统。适合任何需要系统化开发流程、质量管理和激励机制的项目。
+name: sam-dev-cc-init
+description: PDCO 循环开发工作流初始化 — CLAUDE.md / PROGRESS-LOG.md / tasks/TASKS.md / self.opt
 ---
 
 

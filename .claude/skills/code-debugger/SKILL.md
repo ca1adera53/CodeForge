@@ -1,5 +1,6 @@
 ---
-description: 智能代码调试与增量开发系统 - 基于深度上下文理解的精准 Debug 和增量功能迭代
+name: code-debugger
+description: 智能代码调试与增量开发助手 - 在充分理解项目上下文的情况下进行精准 Debug 和功能迭代
 ---
 
 # Code Debugger - 智能代码调试与增量开发系统

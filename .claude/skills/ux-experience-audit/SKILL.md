@@ -1,5 +1,6 @@
 ---
-description: 从用户使用体验而非单层技术实现角度，执行问题扫描、优先级判定与修复闭环。用于“功能看似可用但体验不通”的场景，例如配置后不生效、交互无反馈、错误提示误导、跨前后端链路断裂、模型/供应商切换失败、复制导出等关键操作报错。
+name: ux-experience-audit
+description: UX Experience Audit - 从用户旅程出发的跨层体验审计与修复闭环
 ---
 
 # UX Experience Audit（用户体验审计）

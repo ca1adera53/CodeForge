@@ -1,5 +1,6 @@
 ---
-description: Loop 系统工程师 — 从用户需求出发，设计并开发完整的多 skill 联动 package。扫描现有 skill 资产，识别可复用与缺失项，逐一开发后组包，编写主调度 skill 平滑层。也可用于对已有 package 进行联动完整性审计（格式合规+主调度逻辑+入口文档同步+命名一致性）。当用户说"我需要一个 XX 系统/loop/agent 包"、"帮我设计一个多技能联动方案"、"检查 package 联动完整性"时触发。不适用于单个 skill 开发。
+name: loop-engineer
+description: 启动 Loop Engineer — 从需求出发设计并开发完整的多 skill 联动 package（扫描资产 → Gap分析 → 逐一开发 → 组包 → 平滑层）
 ---
 
 
